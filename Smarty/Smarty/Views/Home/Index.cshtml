@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="main">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("query",null,new {@class="form-control"})
+        <input type="submit" value="НАЙТИ"/>
+    }
+</div>
+<div id="result">
+    @ViewBag.Message
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#result").text().trim()!=="") {
+            $("#result").fadeIn(2000);
+        }
+        
+
+    });
+</script>
