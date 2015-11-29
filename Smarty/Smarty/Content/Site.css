@@ -46,15 +46,15 @@ textarea {
 input[type='submit'] {
     outline: none;
     background: none;
-    border: 2px solid green;
+    border: 2px solid #0063F7;
     border-radius: 2px;
     padding: 7px 20px;
     margin: 10px 0;
     font: 400 18px Arial;
-    color: green;
+    color: #0063F7;
 }
 
     input[type='submit']:hover {
-        background: green;
+        background: #0063F7;
         color: white;
     }

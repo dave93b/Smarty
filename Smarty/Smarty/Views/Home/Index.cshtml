@@ -6,7 +6,7 @@
 <div id="main">
     @using (Html.BeginForm())
     {
-        @Html.TextBox("query",null,new {@class="form-control"})
+        @Html.TextBox("query",null,new {@class="form-control", autocomplete="off"})
         <input type="submit" value="НАЙТИ"/>
     }
 </div>
