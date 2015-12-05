@@ -1,11 +1,10 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 10px;
     padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
     padding-right: 15px;
 }
 
@@ -17,11 +16,7 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
+
 
 #main {
     margin-top: 10px;
@@ -40,21 +35,40 @@ textarea {
     box-shadow: 1px 2px 3px #ccc;
     border: 1px solid #e5e5e5;
     padding: 20px 10px;
-    display: none;
 }
 
-input[type='submit'] {
+#query {
+    width: 50%;
+    height: 45px;
+    font: 200 22px Arial; 
+    margin-left: 25%;
+    color: #287EFF;
+}
+
+input[type='button'] {
     outline: none;
+    width: 20%;
     background: none;
-    border: 2px solid #0063F7;
+    border: 2px solid #5397FD;
     border-radius: 2px;
     padding: 7px 20px;
-    margin: 10px 0;
+    margin: 10px 0 0 40%;
     font: 400 18px Arial;
-    color: #0063F7;
+    color: #5397FD;
 }
 
-    input[type='submit']:hover {
-        background: #0063F7;
-        color: white;
-    }
+input[type='button']:hover {
+    background: #5397FD;
+    color: white;
+}
+
+#loadingImg {
+    width: 6%;
+    margin-left: 47%;
+    margin-top: 50px;
+}
+
+h1 {
+    font: 400 40px Arial;
+    color: #5397FD;
+}

@@ -19,7 +19,7 @@ namespace Smarty.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string query)
+        public JsonResult Index(string query)
         {
 
             WebClient web = new System.Net.WebClient();
@@ -38,23 +38,9 @@ namespace Smarty.Controllers
             {
                 result = "К сожалению, по Вашему запросу ничего не найдено :(";
             }
-//result = doc.DocumentNode.SelectSingleNode("//div[@class='kno-rdesc']//*").InnerText;
-            ViewBag.Message = result;
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            //result = doc.DocumentNode.SelectSingleNode("//div[@class='kno-rdesc']//*").InnerText;
+            //ViewBag.Message = result;
+            return Json(result);
         }
     }
 }

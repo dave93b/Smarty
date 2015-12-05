@@ -2,24 +2,43 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+<h1 align="center">Smarty</h1>
 <div id="main">
-    @using (Html.BeginForm())
-    {
-        @Html.TextBox("query",null,new {@class="form-control", autocomplete="off"})
-        <input type="submit" value="НАЙТИ"/>
-    }
+    @Html.TextBox("query", null, new {@class = "form-control"})
+    <input type="button" id="searchBtn" value="НАЙТИ"/>
 </div>
+<img id="loadingImg" src="~/Content/loading.GIF" style="display: none;" />
 <div id="result">
     @ViewBag.Message
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        if ($("#result").text().trim()!=="") {
-            $("#result").fadeIn(2000);
-        }
-        
+        $("#result").hide();
+
+
+        $("#searchBtn").on('click', function () {
+            $("#loadingImg").show();
+            $("#result").hide();
+            $.ajax({
+                url: '/Home/Index',
+                method: "post",
+                dataType: "json",
+                data: { query: $("#query").val() },
+                success: function(data) {
+                    $("#result").html("<p>"+data+"</p>");
+                    console.log(data);
+                    $("#result").fadeIn(2000);
+                    $("#loadingImg").hide();
+                }
+        });
+        });
+
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#searchBtn").click();
+            }
+        });
 
     });
 </script>
