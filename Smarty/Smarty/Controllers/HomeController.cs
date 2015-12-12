@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using HtmlAgilityPack;
@@ -22,7 +18,7 @@ namespace Smarty.Controllers
         public JsonResult Index(string query)
         {
 
-            WebClient web = new System.Net.WebClient();
+            WebClient web = new WebClient();
             query = query.Replace(" ", "+");
             string str = web.DownloadString("https://www.google.ru/search?q="+query);
             str = HttpUtility.HtmlDecode(str);
@@ -32,15 +28,29 @@ namespace Smarty.Controllers
             string result;
             try
             {
-                result = doc.DocumentNode.SelectSingleNode("//div[@class='_sPg']").InnerText; 
+                result = doc.DocumentNode.SelectSingleNode("//div[@class='_sPg']").InnerText;
             }
             catch (Exception)
             {
-                result = "К сожалению, по Вашему запросу ничего не найдено :(";
+                try
+                {
+                    result = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'_tXc')]").InnerText;
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        result = doc.DocumentNode.SelectSingleNode("//h2[contains(@class,'r')]").InnerText;
+                    }
+                    catch (Exception)
+                    {
+                        result = "К сожалению, по Вашему запросу ничего не найдено :(";
+                    }
+                    
+                }
+                
             }
-            //result = doc.DocumentNode.SelectSingleNode("//div[@class='kno-rdesc']//*").InnerText;
-            //ViewBag.Message = result;
-            return Json(result);
+            return Json(result.Replace("Википедия",""));
         }
     }
 }
