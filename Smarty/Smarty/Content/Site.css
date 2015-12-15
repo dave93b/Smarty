@@ -27,7 +27,7 @@
     padding: 10px;
 }
 
-#result {
+#result, #fileForm {
     font: 100 18px Arial;
     margin-top: 20px;
     background: #f3f3f3;
@@ -42,6 +42,9 @@
     height: 45px;
     font: 200 22px Arial; 
     margin-left: 25%;
+    border: 2px solid #5397FD;
+    border-radius: 5px;
+    box-shadow: none;
     color: #287EFF;
 }
 

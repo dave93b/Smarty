@@ -4,30 +4,59 @@
 }
 <h1 align="center">Smarty</h1>
 <div id="main">
-    @Html.TextBox("query", null, new {@class = "form-control"})
+    @Html.TextBox("query", null, new {@class = "form-control", autocomplete="off"})
     <input type="button" id="searchBtn" value="НАЙТИ"/>
 </div>
 <img id="loadingImg" src="~/Content/loading.GIF" style="display: none;" />
 <div id="result">
+    
+</div>
+<div id="fileForm" style="display: none;">
+    <p>Попробуйте осуществить поиск по файлу. Для этого загрузите текстовый файл:</p>
+    @using (Html.BeginForm("FileData", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="upload"/><br/>
+        <input type="hidden" id="searchString" name="searchString"/>
+        <input type="button" id="loadFileBtn" value="Загрузить" />
+    }
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $("#query").focus();
         $("#result").hide();
 
 
+        $("#loadFileBtn").on('click', function() {
+            this.form.submit();
+        });
+
+
         $("#searchBtn").on('click', function () {
+
+            $("#searchString").val($("#query").val());
+
             $("#loadingImg").show();
             $("#result").hide();
+            $("#fileForm").hide();
             $.ajax({
                 url: '/Home/Index',
                 method: "post",
                 dataType: "json",
                 data: { query: $("#query").val() },
                 success: function(data) {
-                    $("#result").html("<p>"+data+"</p>");
+
                     console.log(data);
-                    $("#result").fadeIn(2000);
+                    
+                    if (data === "К сожалению, по Вашему запросу ничего не найдено :(") {
+                        $("#fileForm").prepend("<p>" + data + "</p>");
+                        $("#fileForm").fadeIn(2000);
+                    }
+                    else {
+                        $("#result").html("<p>" + data + "</p>");
+                        $("#result").fadeIn(2000);
+                    }
                     $("#loadingImg").hide();
                 }
         });

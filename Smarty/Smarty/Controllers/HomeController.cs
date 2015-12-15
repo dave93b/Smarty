@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using HtmlAgilityPack;
@@ -52,6 +54,18 @@ namespace Smarty.Controllers
                 
             }
             return Json(result.Replace("Википедия",""));
+        }
+
+        [HttpPost]
+        public ActionResult FileData(HttpPostedFileBase upload, string searchString)
+        {
+            string text = "";
+            using (StreamReader reader = new StreamReader(upload.InputStream,Encoding.Default))
+            {
+                text = reader.ReadToEnd();
+            }
+
+                return View((object)text);
         }
     }
 }
