@@ -19,6 +19,7 @@ namespace Smarty.Controllers
         {
 
             WebClient web = new WebClient();
+            query = query.Replace("+", "%2B");
             query = query.Replace(" ", "+");
             string str = web.DownloadString("https://www.google.ru/search?q="+query);
             str = HttpUtility.HtmlDecode(str);
