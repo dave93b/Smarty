@@ -23,7 +23,16 @@ namespace Smarty.Controllers
             WebClient web = new WebClient();
             query = query.Replace("+", "%2B");
             query = query.Replace(" ", "+");
-            string str = web.DownloadString("https://www.google.ru/search?q="+query);
+            string str;
+            try
+            {
+                str = web.DownloadString("https://www.google.ru/search?q="+query);
+            }
+            catch (Exception)
+            {
+                return Json((object)"Ошибка! Проверьте подключение к интернету.");
+            }
+            
             str = HttpUtility.HtmlDecode(str);
 
             HtmlDocument doc = new HtmlDocument();
@@ -64,8 +73,21 @@ namespace Smarty.Controllers
             {
                 text = reader.ReadToEnd();
             }
+            string resultString = "";
+            try
+            {
+                int resultStringIndex = text.IndexOf(searchString);
+            resultString = text.Substring(resultStringIndex);
 
-                return View((object)text);
+            int resultStringLastIndex = resultString.IndexOf(".");
+                resultString = resultString.Remove(resultStringLastIndex + 1);
+            }
+            catch (Exception)
+            {
+                resultString = "К сожалению, по Вашему запросу ничего не найдено :(";
+            }
+
+            return View((object)resultString);
         }
     }
 }

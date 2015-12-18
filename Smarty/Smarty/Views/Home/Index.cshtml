@@ -12,6 +12,7 @@
     
 </div>
 <div id="fileForm" style="display: none;">
+    <p id="errorMsg"></p>
     <p>Попробуйте осуществить поиск по файлу. Для этого загрузите текстовый файл:</p>
     @using (Html.BeginForm("FileData", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -50,7 +51,7 @@
                     console.log(data);
                     
                     if (data === "К сожалению, по Вашему запросу ничего не найдено :(") {
-                        $("#fileForm").prepend("<p>" + data + "</p>");
+                        $("#errorMsg").text(data);
                         $("#fileForm").fadeIn(2000);
                     }
                     else {
