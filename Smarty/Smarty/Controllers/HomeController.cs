@@ -76,10 +76,16 @@ namespace Smarty.Controllers
             string resultString = "";
             try
             {
-                int resultStringIndex = text.IndexOf(searchString);
-            resultString = text.Substring(resultStringIndex);
+                int resultStringIndex = text.IndexOf(searchString, StringComparison.OrdinalIgnoreCase);
 
-            int resultStringLastIndex = resultString.IndexOf(".");
+                while (/*resultStringIndex != 0 || */text[resultStringIndex] != '.')
+                {
+                    resultStringIndex--;
+                }
+
+                resultString = text.Substring(resultStringIndex+1);
+
+                int resultStringLastIndex = resultString.IndexOf(".");
                 resultString = resultString.Remove(resultStringLastIndex + 1);
             }
             catch (Exception)
